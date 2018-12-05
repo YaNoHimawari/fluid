@@ -27,6 +27,10 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        tst:{
+            default:null,
+            type:cc.Node,
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -34,9 +38,16 @@ cc.Class({
     onLoad () {
         //开启物理引擎
         cc.director.getPhysicsManager().enabled = true; 
+        
     },
 
-    start () {
+    start () { 
+        var timeCallback = function (dt) {
+            console.log("start");
+            var a = this.tst.getComponent(cc.RigidBody);
+            a.type = 2;
+        }
+        this.schedule(timeCallback, 10);
     },
 
     // update (dt) {},
