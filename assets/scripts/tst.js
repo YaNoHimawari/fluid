@@ -27,38 +27,57 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        world:{
+            default:null,
+        },
+        body:{
+            default:null,
+         },
+         liquid:null,
+         item:{
+             default:null,
+             type:cc.Prefab,
+         },
+         point :{
+             default:null,
+         }
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        //开启物理引擎
-        cc.director.getPhysicsManager().enabled = true; 
-        cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
-        cc.PhysicsManager.DrawBits.e_pairBit |
-        cc.PhysicsManager.DrawBits.e_centerOfMassBit |
-        cc.PhysicsManager.DrawBits.e_jointBit |
-        cc.PhysicsManager.DrawBits.e_shapeBit;
-        initTestbed();
+        // //开启物理引擎
+        // cc.director.getPhysicsManager().enabled = true; 
+        // //开启调试绘制
+        // cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit |
+        // cc.PhysicsManager.DrawBits.e_pairBit |
+        // cc.PhysicsManager.DrawBits.e_centerOfMassBit |
+        // cc.PhysicsManager.DrawBits.e_jointBit |
+        // cc.PhysicsManager.DrawBits.e_shapeBit;
+
+        var gravity = new b2Vec2(0, -10);
+        window.world = new b2World(gravity, true);
+        this.liquid = [];
+        this.point = new b2Vec2(0, 0);
     },
 
     start () {
-        camera.position.y = 2;
-        camera.position.z = 3;
-        var bodyDef = new b2BodyDef();
-        var ground = world.CreateBody(bodyDef);
-
-        var chainShape = new b2ChainShape();
-        chainShape.vertices.push(new b2Vec2(-2, 0));
-        chainShape.vertices.push(new b2Vec2(2, 0));
-        chainShape.vertices.push(new b2Vec2(2, 4));
-        chainShape.vertices.push(new b2Vec2(-2, 4));
-
-        chainShape.CreateLoop();
-        ground.CreateFixtureFromShape(chainShape, 0);
-
+        let visibleSize = cc.director.getVisibleSize();
+        this.visibleSize = visibleSize;
+        
+        let SCALE = 10;
+        this.SCALE = SCALE;
+        
+        let DEGTORAD = Math.PI/180;
+        
+        let RADTODEG = 180/Math.PI;
+        this.RADTODEG = RADTODEG;
+        
+        let worldPoint = this.convertToWorld();
+        
         var shape = new b2PolygonShape;
-        shape.SetAsBoxXYCenterAngle(0.8, 1, new b2Vec2(-1.2, 1.01), 0);
+        shape.SetAsBoxXYCenterAngle(0.8, 1, worldPoint, 0);
 
         var psd = new b2ParticleSystemDef();
         psd.radius = 0.025;
@@ -69,28 +88,45 @@ cc.Class({
         var pd = new b2ParticleGroupDef();
         pd.shape = shape;
         var group = particleSystem.CreateParticleGroup(pd);
-
-        // var bodyDef = new b2BodyDef(); 
-        // bodyDef.position.Set(50,50);
-        // var circleShape = new b2CircleShape();
-        // circleShape.radius = 10;
-        // // var fixtureDef = new b2FixtureDef();
-        // // fixtureDef.shape = circleShape;
-        // // fixtureDef.density = 1;
-        // // fixtureDef.restitution = .6;
-        // // fixtureDef.friction = .1;
-        // var theBall = world.CreateBody(bodyDef);
-        // theBall.CreateFixtureFromShape(circleShape, 1);
-        // console.log(theBall);
-        // console.log("finished!");
-        // setInterval(function(){
-        //     world.Step(1/30,10,10);
-        //     //world.ClearForces(); // 清除作用力
-        // }, 1000 / 60);
+        this.bodyA = particleSystem;
+        
+        var count = this.bodyA.GetParticleCount();
+        for(let i =0;i<count/2;++i)
+        {
+            var t = cc.instantiate(this.item);
+            this.node.addChild(t);
+            this.liquid.push(t);
+        }
+        console.log(this.liquid);
+        console.log(this.bodyA.GetParticleCount());
+        console.log(this.bodyA.GetPositionBuffer());
     },
 
     
-    // update (dt) {},
+    update (dt) {
+        world.Step(dt, 10, 10);
+        var count = this.bodyA.GetParticleCount();
+        let positions = this.bodyA.GetPositionBuffer();
+        for(let i = 0;i< count/2;++i)
+        {
+            this.liquid[i].x = positions[2*i];
+            this.liquid[i].y = positions[2*i+1];
+            //console.log(this.liquid[i]);
+        }
+        //console.log(this.liquid[45].position);
+    },
+
+    convertToWorld:function(){
+        let leftDownPos = this.node.parent.convertToWorldSpaceAR(this.node.position);
+        return cc.v2(leftDownPos.x/this.SCALE,(this.visibleSize.height-leftDownPos.y)/this.SCALE);
+    },
+    
+    convertToNode:function(worldPoint){
+        let leftUpPos = cc.pMult(worldPoint,this.SCALE);
+        let leftDownPosInWorldPixel = cc.v2(leftUpPos.x,(this.visibleSize.height-leftUpPos.y));
+        let leftDownPos =  this.node.parent.convertToNodeSpaceAR(leftDownPosInWorldPixel);
+        return leftDownPos;
+    },
 });
 
 
