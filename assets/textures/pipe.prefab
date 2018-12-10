@@ -24,13 +24,10 @@
       },
       {
         "__id__": 3
-      },
-      {
-        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -49,17 +46,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 132,
-      "height": 193
+      "width": 100,
+      "height": 100
     },
     "_rotationX": 90,
     "_rotationY": 90,
-    "_scaleX": 0.7,
-    "_scaleY": 0.5,
+    "_scaleX": 1,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -183,
-      "y": 161
+      "x": -192,
+      "y": 215
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -80,7 +77,7 @@
       "__uuid__": "974dc2ab-96fc-4a92-915a-bed21835c2bf"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -95,52 +92,15 @@
     "_atlas": null
   },
   {
-    "__type__": "cc.RigidBody",
+    "__type__": "905aeyDFshE1oey+Rnm8fkv",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "_type": 1,
-    "_allowSleep": true,
-    "_gravityScale": 0,
-    "_linearDamping": 0,
-    "_angularDamping": 0,
-    "_linearVelocity": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_angularVelocity": 0,
-    "_fixedRotation": false,
-    "enabledContactListener": false,
-    "bullet": false
-  },
-  {
-    "__type__": "cc.PhysicsBoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "tag": 0,
-    "_density": 1,
-    "_sensor": false,
-    "_friction": 0.2,
-    "_restitution": 0,
-    "body": null,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 132,
-      "height": 193
-    }
+    "visibleSize": null,
+    "body": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -150,7 +110,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "0ckNFDeC1AMbHNQh4AJ8MA",
+    "fileId": "faJjYFGrZGyr2yE58fBQYl",
     "sync": false
   }
 ]

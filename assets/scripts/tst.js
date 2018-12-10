@@ -90,8 +90,8 @@ cc.Class({
           transform = new b2Transform();
         transform.SetIdentity();
         this.drawLf.clear();
-        for (var i = 0; i < 1500; i += 2) {
-            this.insertParticleVertices(5, particles[i], particles[i + 1]);
+        for (var i = 0; i < maxParticles; i += 2) {
+            this.insertParticleVertices(2, particles[i], particles[i + 1]);
         }
     },
 
