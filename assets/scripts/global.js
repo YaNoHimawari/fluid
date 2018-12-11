@@ -3,7 +3,8 @@ window.MAX_CHAPTER_NUM = 1;
 window.USER_ID = 1;
 window.USER_NAME = "user";
 
-window.SCALE = 30;
+window.SCALE = 32;
+window.RADTODEG = Math.PI/180;
 
 window.convertToPWorld = function(position){
     let leftDownPos = position;

@@ -14,11 +14,13 @@ cc.Class({
 
     start () {
         var shape = new b2PolygonShape;
-        shape.SetAsBoxXYCenterAngle(1, 1, convertToPWorld(this.pipe.position), 0);
+        //shape.SetAsBoxXYCenterAngle(1, 1, convertToPWorld(this.pipe.position), 0);
+        shape.SetAsBoxXYCenterAngle(1, 1, new b2Vec2(0,10), 0);
 
         var psd = new b2ParticleSystemDef();
         psd.radius = 0.04;
         //psd.dampingStrength = 0.1;
+        console.log(psd);
         var particleSystem = world.CreateParticleSystem(psd);
 
         var pd = new b2ParticleGroupDef();
@@ -30,7 +32,6 @@ cc.Class({
         var direction = new b2Vec2(1, 0);
         var force = new b2Vec2();
         b2Vec2.MulScalar(force, direction, kForceMagnitude * numParticles);
-        console.log(group, force);
         group.ApplyForce(force);
     },
 
