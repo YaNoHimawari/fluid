@@ -6,7 +6,7 @@ cc.Class({
         body:null,
     },
 
-    start () {
+    awake:function(){
         var position = this.node.position;
         let radius = this.node.width/2;
 
@@ -17,11 +17,18 @@ cc.Class({
         this.body = world.CreateBody(bd);
         var shape = new b2CircleShape();
         shape.radius = radius/SCALE;
-        this.body.CreateFixtureFromShape(shape, 0.1);
+        this.body.CreateFixtureFromShape(shape, 1);
     },
 
     update (dt) {
-        this.node.position = convertToNode(this.body.GetPosition());
-        this.node.rotation = -this.body.GetAngle()/RADTODEG;
+        if(STRAT_FLAG)
+        {
+            if(this.body === null)
+            {
+                this.awake();
+            }
+            this.node.position = convertToNode(this.body.GetPosition());
+            this.node.rotation = -this.body.GetAngle()/RADTODEG;
+        }
     },
 });

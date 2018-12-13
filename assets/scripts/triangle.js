@@ -6,7 +6,7 @@ cc.Class({
         body:null,
     },
 
-    start () {
+    awake:function () {
         var position = this.node.position;
         let width = this.node.width;
         let height = this.node.height;
@@ -20,13 +20,18 @@ cc.Class({
         shape.vertices.push(convertToPWorld(cc.v2(0, height/2)));
         shape.vertices.push(convertToPWorld(cc.v2(-width/2, -height/2)));
         shape.vertices.push(convertToPWorld(cc.v2(width/2, -height/2)));
-        console.log(shape);
-        this.body.CreateFixtureFromShape(shape, 0);
-        console.log(this.body.GetPosition());
+        this.body.CreateFixtureFromShape(shape, 1);
     },
 
     update (dt) {
-        this.node.position = convertToNode(this.body.GetPosition());
-        this.node.rotation = -this.body.GetAngle()/RADTODEG;
+        if(STRAT_FLAG)
+        {
+            if(this.body === null)
+            {
+                this.awake();
+            }
+            this.node.position = convertToNode(this.body.GetPosition());
+            this.node.rotation = -this.body.GetAngle()/RADTODEG;
+        }
     },
 });

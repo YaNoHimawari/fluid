@@ -6,7 +6,7 @@ cc.Class({
         body:null,
     },
 
-    start () {
+    awake:function () {
         var position = this.node.position;
         let width = this.node.width;
         let height = this.node.height;
@@ -23,7 +23,14 @@ cc.Class({
     },
 
     update (dt) {
-        this.node.position = convertToNode(this.body.GetPosition());
-        this.node.rotation = -this.body.GetAngle()/RADTODEG ;
+        if(STRAT_FLAG)
+        {
+            if(this.body === null)
+            {
+                this.awake();
+            }
+            this.node.position = convertToNode(this.body.GetPosition());
+            this.node.rotation = -this.body.GetAngle()/RADTODEG ;
+        }
     },
 });

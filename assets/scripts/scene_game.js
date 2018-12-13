@@ -11,6 +11,7 @@ cc.Class({
     },
 
     onLoad () {
+        STRAT_FLAG = false;
         //创建物理世界
         var gravity = new b2Vec2(0, -10);
         window.world = new b2World(gravity, true);
@@ -32,7 +33,6 @@ cc.Class({
         for(let i=0;i<this.bodys.length;++i)
         {
             let center = this.bodys[i].GetPosition();
-            console.log(center);
             let vertices = this.bodys[i].fixtures[0].shape.vertices;
             for(let j=0;j<vertices.length-1;++j)
             {
@@ -82,6 +82,8 @@ cc.Class({
         }
         body.CreateFixtureFromShape(chainShape, 1);
         this.bodys.push(body);
+        console.log(this.vertices.length);
+        STRAT_FLAG = true;
     },
 
     //重新开始当前关卡
