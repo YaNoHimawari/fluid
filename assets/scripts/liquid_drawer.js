@@ -6,7 +6,7 @@ cc.Class({
            default:null,
            type:cc.Graphics,
        },
-       pipe:{
+       outfall:{
            default:null,
            type:cc.Node,
        },
@@ -67,7 +67,7 @@ cc.Class({
         var minX = this.box.x-this.box.width/2;
         var maxX = this.box.x+this.box.width/2;
         var minY = this.box.y-this.box.height/2;
-        var maxY = minY+this.box.height*0.9;
+        var maxY = minY+this.box.height*0.8;
         this.graphics.clear();
         for (var i = 0; i < maxParticles; i += 2) {
             let x = particles[i]*SCALE;
@@ -84,7 +84,7 @@ cc.Class({
             this.scheduleOnce(this.checkResult,5);
             this.schedulefalg = true;
         }
-        if(count > 1100)
+        if(count > 1000)
         {
             ++this.hit;
         }

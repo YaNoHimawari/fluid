@@ -2,33 +2,50 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        pen:{
+        //绘制用笔
+        drawpen:{
             default:null,
             type:cc.Graphics,
         },
-        vertices:null,
-        bodys:null,
+        //更新绘制组件用笔
+        updatepen:{
+            default:null,
+            type:cc.Graphics,
+        },
+        //墨水条
+        inkbar:{
+            default:null,
+            type:cc.Node,
+        },
+        //墨水值
+        inkvalue:{
+            default:null,
+            type:cc.Label,
+        },  
     },
+
+    vertices:null,      //节点存储数组
+    bodys:null,         //组件存储数组
 
     onLoad () {
         STRAT_FLAG = false;
+        this.bodys = [];
+
         //创建物理世界
         var gravity = new b2Vec2(0, -10);
-        window.world = new b2World(gravity, true);
+        world = new b2World(gravity, true);
 
         //开启事件监听
         this.node.on(cc.Node.EventType.TOUCH_START,this.draw_start,this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE,this.draw_move,this);
         this.node.on(cc.Node.EventType.TOUCH_END,this.draw_end,this);
-
-        this.bodys = [];
     },
 
     update (dt) {
         world.Step(dt, 8, 3);
         if(this.bodys.length >0)
         {
-            this.pen.clear();
+            this.updatepen.clear();
         }
         for(let i=0;i<this.bodys.length;++i)
         {
@@ -38,9 +55,9 @@ cc.Class({
             {
                 let v1 = convertToNode(new b2Vec2(vertices[j].x+center.x,vertices[j].y+center.y));
                 let v2 = convertToNode(new b2Vec2(vertices[j+1].x+center.x,vertices[j+1].y+center.y));
-                this.pen.moveTo(v1.x,v1.y);
-                this.pen.lineTo(v2.x,v2.y);
-                this.pen.stroke();
+                this.updatepen.moveTo(v1.x,v1.y);
+                this.updatepen.lineTo(v2.x,v2.y);
+                this.updatepen.stroke();
             }
         }
     },
@@ -50,9 +67,8 @@ cc.Class({
     },
 
     draw_move:function(t){
-        
         var position = t.getLocation();
-        var nodeposition = this.pen.node.convertToNodeSpaceAR(position);
+        var nodeposition = this.drawpen.node.convertToNodeSpaceAR(position);
         if(this.vertices.length > 0)
         {
             var lastpoint = this.vertices[this.vertices.length-1];
@@ -60,11 +76,21 @@ cc.Class({
             {
                 return;
             }
-            this.pen.moveTo(lastpoint.x, lastpoint.y);
-            this.pen.lineTo(nodeposition.x, nodeposition.y);
-            this.pen.stroke();
+            this.drawpen.moveTo(lastpoint.x, lastpoint.y);
+            this.drawpen.lineTo(nodeposition.x, nodeposition.y);
+            this.drawpen.stroke();
         }
         this.vertices.push(nodeposition);
+        this.inkvalue.string = Number(this.inkvalue.string) - 2;
+        this.inkbar.width = 250 * Number(this.inkvalue.string) / 100;
+        if(Number(this.inkvalue.string) < 1)
+        {
+            this.draw_end();
+            //关闭事件监听
+            this.node.off(cc.Node.EventType.TOUCH_START,this.draw_start,this);
+            this.node.off(cc.Node.EventType.TOUCH_MOVE,this.draw_move,this);
+            this.node.off(cc.Node.EventType.TOUCH_END,this.draw_end,this);
+        }
     },
 
     draw_end:function(t){
@@ -82,7 +108,8 @@ cc.Class({
         }
         body.CreateFixtureFromShape(chainShape, 1);
         this.bodys.push(body);
-        console.log(this.vertices.length);
+        
+        this.drawpen.clear();
         STRAT_FLAG = true;
     },
 
