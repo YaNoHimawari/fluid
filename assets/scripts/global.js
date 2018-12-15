@@ -1,12 +1,14 @@
-window.CURR_CHAPTER_NUM = 1;
-window.MAX_CHAPTER_NUM = 1;
-window.USER_ID = 1;
-window.USER_NAME = "user";
+window.CURR_CHAPTER_NUM = 1;    //当前关卡
+window.MAX_CHAPTER_NUM = 1;     //用户最大可选关卡
+window.USER_ID = 1;             //用户ID
+window.USER_NAME = "user";      //用户名
 
-window.world = null;
-window.STRAT_FLAG = false;
-window.SCALE = 32;
-window.RADTODEG = Math.PI/180;
+window.world = null;            //物理世界
+window.STRAT_FLAG = false;      //物理世界开启标志
+window.SCALE = 32;              //物理世界距离转化值
+window.RADTODEG = Math.PI/180;  //物理世界角度转化值
+window.SCORE = 100;             //当前关卡得分
+window.MAX_CHAPTER_COUNT = 1;  //游戏最大关卡数
 
 window.convertToPWorld = function(position){
     let leftDownPos = position;

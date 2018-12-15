@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "in_pipe",
+    "_name": "box",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -24,13 +24,10 @@
       },
       {
         "__id__": 3
-      },
-      {
-        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -49,17 +46,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 132,
-      "height": 193
+      "width": 100,
+      "height": 50
     },
-    "_rotationX": 360,
-    "_rotationY": 360,
-    "_scaleX": 0.7,
-    "_scaleY": 0.5,
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 181,
-      "y": -418
+      "x": 172,
+      "y": -239
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -67,6 +64,15 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0
+  },
+  {
+    "__type__": "905aeyDFshE1oey+Rnm8fkv",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true
   },
   {
     "__type__": "cc.Sprite",
@@ -77,10 +83,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "974dc2ab-96fc-4a92-915a-bed21835c2bf"
+      "__uuid__": "4dc04dc9-aec9-4dd0-ba52-297cabf70e99"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -95,54 +101,6 @@
     "_atlas": null
   },
   {
-    "__type__": "cc.RigidBody",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_type": 1,
-    "_allowSleep": true,
-    "_gravityScale": 0,
-    "_linearDamping": 0,
-    "_angularDamping": 0,
-    "_linearVelocity": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_angularVelocity": 0,
-    "_fixedRotation": false,
-    "enabledContactListener": false,
-    "bullet": false
-  },
-  {
-    "__type__": "cc.PhysicsBoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "tag": 0,
-    "_density": 1,
-    "_sensor": false,
-    "_friction": 0.2,
-    "_restitution": 0,
-    "body": null,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 132,
-      "height": 193
-    }
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -150,7 +108,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "0bx9jKokdHiqztRFFPWzGU",
+    "fileId": "c9kCUnFwVGE4fB39RoJXAd",
     "sync": false
   }
 ]

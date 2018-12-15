@@ -14,28 +14,27 @@ cc.Class({
            default:null,
            type:cc.Node,
        },
-       hit:null,
-       schedulefalg:null,
     },
 
+    passflag:null,
+    schedulefalg :null,
+
     onLoad(){
-        this.hit = 0;
+        this.passfalg = false;
         this.schedulefalg = false;
     },
 
     awake:function() {
         var shape = new b2PolygonShape;
-        //shape.SetAsBoxXYCenterAngle(1, 1, convertToPWorld(this.pipe.position), 0);
-        shape.SetAsBoxXYCenterAngle(1.5, 1.5, new b2Vec2(0,10), 0);
+        shape.SetAsBoxXYCenterAngle(this.outfall.width/2/SCALE, this.outfall.height/2/SCALE, convertToPWorld(this.outfall.position), 0);
 
         var psd = new b2ParticleSystemDef();
-        psd.radius = 0.05;
-        psd.dampingStrength = 0.01;
+        psd.radius = 0.04;
+        //psd.dampingStrength = 0.01;
         var particleSystem = world.CreateParticleSystem(psd);
 
         var pd = new b2ParticleGroupDef();
         pd.shape = shape;
-        console.log(pd);
         var group = particleSystem.CreateParticleGroup(pd);
 
         // var numParticles = particleSystem.GetParticleCount();
@@ -53,6 +52,7 @@ cc.Class({
             if(world.particleSystems.length === 0)
             {
                 this.awake();
+                this.outfall.active = false;
             }
             for (var i = 0, max = world.particleSystems.length; i < max; i++) {
                 this.drawParticleSystem(world.particleSystems[i]);
@@ -67,12 +67,12 @@ cc.Class({
         var minX = this.box.x-this.box.width/2;
         var maxX = this.box.x+this.box.width/2;
         var minY = this.box.y-this.box.height/2;
-        var maxY = minY+this.box.height*0.8;
+        var maxY = minY+this.box.height*0.6;
         this.graphics.clear();
         for (var i = 0; i < maxParticles; i += 2) {
             let x = particles[i]*SCALE;
             let y = particles[i+1]*SCALE;
-            this.graphics.circle(x, y,0.055*SCALE);
+            this.graphics.circle(x, y,0.045*SCALE);
             this.graphics.fill();
             if((minX<x && x<maxX) && (minY<y && y<maxY))
             {
@@ -81,22 +81,23 @@ cc.Class({
         }
         if(!this.schedulefalg && count > 0)
         {
-            this.scheduleOnce(this.checkResult,5);
+            this.scheduleOnce(this.failed,8);
             this.schedulefalg = true;
         }
-        if(count > 1000)
+        if(!this.passfalg && count > 1200)
         {
-            ++this.hit;
+            this.unschedule(this.failed);
+            this.scheduleOnce(this.pass,2);
+            this.passfalg = true;
         }
     },
 
-    checkResult:function(){
-        if(this.hit > 50)
-        {
-            cc.director.loadScene("Pass");
-        }
-        else{
-            console.log("false");
-        }
+    failed:function(){
+        let scenenname = "Chapter" + CURR_CHAPTER_NUM.toString();
+        cc.director.loadScene(scenenname);
     },
+
+    pass:function(){
+        cc.director.loadScene("Pass");
+    }
 });

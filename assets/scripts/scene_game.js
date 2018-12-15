@@ -29,6 +29,7 @@ cc.Class({
 
     onLoad () {
         STRAT_FLAG = false;
+        SCORE = 100;
         this.bodys = [];
 
         //创建物理世界
@@ -81,9 +82,9 @@ cc.Class({
             this.drawpen.stroke();
         }
         this.vertices.push(nodeposition);
-        this.inkvalue.string = Number(this.inkvalue.string) - 2;
-        this.inkbar.width = 250 * Number(this.inkvalue.string) / 100;
-        if(Number(this.inkvalue.string) < 1)
+        this.inkvalue.string = SCORE = SCORE - 1;
+        this.inkbar.width = 250 * SCORE / 100;
+        if(SCORE < 1)
         {
             this.draw_end();
             //关闭事件监听
@@ -106,7 +107,7 @@ cc.Class({
         {
             chainShape.vertices.push(convertToPWorld(this.vertices[i]));
         }
-        body.CreateFixtureFromShape(chainShape, 1);
+        body.CreateFixtureFromShape(chainShape, 15);
         this.bodys.push(body);
         
         this.drawpen.clear();
@@ -117,5 +118,10 @@ cc.Class({
     replay:function(){
         let scenenname = "Chapter" + CURR_CHAPTER_NUM.toString();
         cc.director.loadScene(scenenname);
+    },
+
+    //返回主页
+    home:function(){
+        cc.director.loadScene("MainMenu");
     },
 });
