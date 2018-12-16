@@ -4,11 +4,13 @@ window.USER_ID = 1;             //用户ID
 window.USER_NAME = "user";      //用户名
 
 window.world = null;            //物理世界
+window.vertices = [];           //线条节点数组
 window.STRAT_FLAG = false;      //物理世界开启标志
 window.SCALE = 32;              //物理世界距离转化值
 window.RADTODEG = Math.PI/180;  //物理世界角度转化值
 window.SCORE = 100;             //当前关卡得分
-window.MAX_CHAPTER_COUNT = 1;  //游戏最大关卡数
+window.MAX_CHAPTER_COUNT = 2;   //游戏最大关卡数
+
 
 window.convertToPWorld = function(position){
     let leftDownPos = position;

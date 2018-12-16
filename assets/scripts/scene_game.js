@@ -8,10 +8,10 @@ cc.Class({
             type:cc.Graphics,
         },
         //更新绘制组件用笔
-        updatepen:{
-            default:null,
-            type:cc.Graphics,
-        },
+        // updatepen:{
+        //     default:null,
+        //     type:cc.Graphics,
+        // },
         //墨水条
         inkbar:{
             default:null,
@@ -21,6 +21,11 @@ cc.Class({
         inkvalue:{
             default:null,
             type:cc.Label,
+        },
+        //线条节点
+        line:{
+            default:null,
+            type:cc.Prefab,
         },  
     },
 
@@ -44,23 +49,23 @@ cc.Class({
 
     update (dt) {
         world.Step(dt, 8, 3);
-        if(this.bodys.length >0)
-        {
-            this.updatepen.clear();
-        }
-        for(let i=0;i<this.bodys.length;++i)
-        {
-            let center = this.bodys[i].GetPosition();
-            let vertices = this.bodys[i].fixtures[0].shape.vertices;
-            for(let j=0;j<vertices.length-1;++j)
-            {
-                let v1 = convertToNode(new b2Vec2(vertices[j].x+center.x,vertices[j].y+center.y));
-                let v2 = convertToNode(new b2Vec2(vertices[j+1].x+center.x,vertices[j+1].y+center.y));
-                this.updatepen.moveTo(v1.x,v1.y);
-                this.updatepen.lineTo(v2.x,v2.y);
-                this.updatepen.stroke();
-            }
-        }
+        // if(this.bodys.length >0)
+        // {
+        //     this.updatepen.clear();
+        // }
+        // for(let i=0;i<this.bodys.length;++i)
+        // {
+        //     let center = this.bodys[i].GetPosition();
+        //     let vertices = this.bodys[i].fixtures[0].shape.vertices;
+        //     for(let j=0;j<vertices.length-1;++j)
+        //     {
+        //         let v1 = convertToNode(new b2Vec2(vertices[j].x+center.x,vertices[j].y+center.y));
+        //         let v2 = convertToNode(new b2Vec2(vertices[j+1].x+center.x,vertices[j+1].y+center.y));
+        //         this.updatepen.moveTo(v1.x,v1.y);
+        //         this.updatepen.lineTo(v2.x,v2.y);
+        //         this.updatepen.stroke();
+        //     }
+        // }
     },
 
     draw_start:function(t){
@@ -99,16 +104,21 @@ cc.Class({
         {
             return;
         }
-        var bd = new b2BodyDef();
-        bd.type = 2;
-        var body = world.CreateBody(bd);
-        var chainShape = new b2ChainShape();
-        for(let i=0;i<this.vertices.length;++i)
-        {
-            chainShape.vertices.push(convertToPWorld(this.vertices[i]));
-        }
-        body.CreateFixtureFromShape(chainShape, 15);
-        this.bodys.push(body);
+        vertices = this.vertices;
+        var node = cc.instantiate(this.line);
+        node.parent = this.node;
+        var js = node.getComponent("line"); 
+        js.awake();
+        // var bd = new b2BodyDef();
+        // bd.type = 2;
+        // var body = world.CreateBody(bd);
+        // var chainShape = new b2ChainShape();
+        // for(let i=0;i<this.vertices.length;++i)
+        // {
+        //     chainShape.vertices.push(convertToPWorld(this.vertices[i]));
+        // }
+        // body.CreateFixtureFromShape(chainShape, 15);
+        // this.bodys.push(body);
         
         this.drawpen.clear();
         STRAT_FLAG = true;

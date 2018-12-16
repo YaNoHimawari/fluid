@@ -29,7 +29,7 @@ cc.Class({
         shape.SetAsBoxXYCenterAngle(this.outfall.width/2/SCALE, this.outfall.height/2/SCALE, convertToPWorld(this.outfall.position), 0);
 
         var psd = new b2ParticleSystemDef();
-        psd.radius = 0.04;
+        psd.radius = 0.05;
         //psd.dampingStrength = 0.01;
         var particleSystem = world.CreateParticleSystem(psd);
 
@@ -72,7 +72,7 @@ cc.Class({
         for (var i = 0; i < maxParticles; i += 2) {
             let x = particles[i]*SCALE;
             let y = particles[i+1]*SCALE;
-            this.graphics.circle(x, y,0.045*SCALE);
+            this.graphics.circle(x, y,0.055*SCALE);
             this.graphics.fill();
             if((minX<x && x<maxX) && (minY<y && y<maxY))
             {
@@ -81,13 +81,13 @@ cc.Class({
         }
         if(!this.schedulefalg && count > 0)
         {
-            this.scheduleOnce(this.failed,8);
+            //this.scheduleOnce(this.failed,8);
             this.schedulefalg = true;
         }
         if(!this.passfalg && count > 1200)
         {
-            this.unschedule(this.failed);
-            this.scheduleOnce(this.pass,2);
+            //this.unschedule(this.failed);
+            //this.scheduleOnce(this.pass,2);
             this.passfalg = true;
         }
     },

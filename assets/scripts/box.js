@@ -29,8 +29,4 @@ cc.Class({
         this.body.CreateFixtureFromShape(shape, 1);
 
     },
-
-    update(){
-        console.log(this.body.GetPosition(), this.body.GetAngle());
-    }
 });

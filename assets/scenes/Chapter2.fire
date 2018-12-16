@@ -976,8 +976,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -90,
-      "y": 329
+      "x": 167,
+      "y": -228
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1459,6 +1459,9 @@
     },
     "inkvalue": {
       "__id__": 20
+    },
+    "line": {
+      "__uuid__": "0573be4c-88ef-47a7-bc52-8ffcdac40e4c"
     }
   }
 ]
