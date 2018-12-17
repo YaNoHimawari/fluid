@@ -36,7 +36,6 @@ cc.Class({
         var pd = new b2ParticleGroupDef();
         pd.shape = shape;
         var group = particleSystem.CreateParticleGroup(pd);
-
         // var numParticles = particleSystem.GetParticleCount();
         // var kForceMagnitude = 1.0;
         // var direction = new b2Vec2(1, 0);
@@ -81,13 +80,13 @@ cc.Class({
         }
         if(!this.schedulefalg && count > 0)
         {
-            //this.scheduleOnce(this.failed,8);
+            this.scheduleOnce(this.failed,8);
             this.schedulefalg = true;
         }
-        if(!this.passfalg && count > 1200)
+        if(!this.passfalg && count > 1000)
         {
-            //this.unschedule(this.failed);
-            //this.scheduleOnce(this.pass,2);
+            this.unschedule(this.failed);
+            this.scheduleOnce(this.pass,2);
             this.passfalg = true;
         }
     },

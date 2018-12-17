@@ -1,7 +1,6 @@
 window.CURR_CHAPTER_NUM = 1;    //当前关卡
 window.MAX_CHAPTER_NUM = 1;     //用户最大可选关卡
-window.USER_ID = 1;             //用户ID
-window.USER_NAME = "user";      //用户名
+window.USER_NAME = "";          //用户名
 
 window.world = null;            //物理世界
 window.vertices = [];           //线条节点数组

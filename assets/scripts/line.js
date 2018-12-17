@@ -13,12 +13,12 @@ cc.Class({
 
     awake:function () {
         //绘制图形
-        // for(let i = 0;i<vertices.length-1;++i)
-        // {
-        //     this.drawpen.moveTo(vertices[i].x,vertices[i].y);
-        //     this.drawpen.lineTo(vertices[i+1].x,vertices[i+1].y);
-        //     this.drawpen.stroke();
-        // }
+        for(let i = 0;i<vertices.length-1;++i)
+        {
+            this.drawpen.moveTo(vertices[i].x,vertices[i].y);
+            this.drawpen.lineTo(vertices[i+1].x,vertices[i+1].y);
+            this.drawpen.stroke();
+        }
 
         //创建物理实体
         var position = this.node.position;
@@ -31,7 +31,6 @@ cc.Class({
         {
             this.makeLine(vertices[i],vertices[i+1]);
         }
-        console.log(this.body);
         this.flag = true;
     },
 
@@ -53,15 +52,15 @@ cc.Class({
         {
             this.node.position = convertToNode(this.body.GetPosition());
             this.node.rotation = -this.body.GetAngle()/RADTODEG;
-            this.drawpen.clear();
-            var fixtures = this.body.fixtures;
-            for(let i = 0;i<fixtures.length;++i)
-            {
-                let vs = fixtures[i].shape.vertices;
-                this.drawpen.moveTo(vs[0].x*SCALE,vs[0].y*SCALE);
-                this.drawpen.lineTo(vs[2].x*SCALE,vs[2].y*SCALE);
-                this.drawpen.stroke();
-            }
+            // this.drawpen.clear();
+            // var fixtures = this.body.fixtures;
+            // for(let i = 0;i<fixtures.length;++i)
+            // {
+            //     let vs = fixtures[i].shape.vertices;
+            //     this.drawpen.moveTo(vs[0].x*SCALE,vs[0].y*SCALE);
+            //     this.drawpen.lineTo(vs[2].x*SCALE,vs[2].y*SCALE);
+            //     this.drawpen.stroke();
+            // }
         }    
     }
 });
