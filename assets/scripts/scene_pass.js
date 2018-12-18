@@ -24,10 +24,20 @@ cc.Class({
         {
             MAX_CHAPTER_NUM = CURR_CHAPTER_NUM + 1;
         }
+        else{
+            return;
+        }
+        
     },
 
     //下一关卡
     next:function(){
+        if(USER_NAME !== "")
+        {
+            var socket = window.io('http://localhost:3000');
+            var data = {'name':USER_NAME, 'num':MAX_CHAPTER_NUM};
+            socket.emit('updateC', data);
+        }
         CURR_CHAPTER_NUM = CURR_CHAPTER_NUM + 1;
         let scenenname = "Chapter" + CURR_CHAPTER_NUM.toString();
         cc.director.loadScene(scenenname);

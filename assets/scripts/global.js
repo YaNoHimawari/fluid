@@ -8,7 +8,7 @@ window.STRAT_FLAG = false;      //物理世界开启标志
 window.SCALE = 32;              //物理世界距离转化值
 window.RADTODEG = Math.PI/180;  //物理世界角度转化值
 window.SCORE = 100;             //当前关卡得分
-window.MAX_CHAPTER_COUNT = 2;   //游戏最大关卡数
+window.MAX_CHAPTER_COUNT = 15;   //游戏最大关卡数
 
 
 window.convertToPWorld = function(position){

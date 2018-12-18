@@ -15,36 +15,30 @@ cc.Class({
            default:null,
            type:cc.Label,
        },
-       
     },
 
 
-    //登录
-    login:function(){
+    //注册
+    signin:function(){
         let self = this;
         var player = {'name':this.account.string, 'password':this.password.string};
         var socket = window.io('http://localhost:3000');
-        socket.emit('login', player);
-        socket.on('loginResult',function(result){
-            if(result !== null)
+        socket.emit('signin', player);
+        socket.on('signinResult',function(result){
+            if(result)
             {
-                USER_NAME = result.name;
-                CURR_CHAPTER_NUM = MAX_CHAPTER_NUM = result.maxC;
+                USER_NAME = player.name;
+                CURR_CHAPTER_NUM = MAX_CHAPTER_NUM = 1;
                 cc.director.loadScene("Setting");
             }
             else{
-                self.message.string = "登录失败";
+                self.message.string = "注册失败";
             }
         });
     },
 
-    //注册
-    signin:function(){
-        cc.director.loadScene("Signin");
-    },
-
-    //返回设置
+    //返回登录
     back:function(){
-        cc.director.loadScene("Setting");
+        cc.director.loadScene("Login");
     },
 });

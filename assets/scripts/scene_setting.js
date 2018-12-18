@@ -1,43 +1,42 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+       playername:{
+           default:null,
+           type:cc.Label,
+       },
+       status:{
+           default:null,
+           type:cc.Label,
+       }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
-    start () {
-
+   
+    onLoad () {
+        if(USER_NAME !== "")
+        {
+            this.playername.string = USER_NAME;
+            this.status.string = "注销";
+        }
     },
 
-    // update (dt) {},
+    //登录or注销
+    changeStatus:function(){
+        if(this.status.string === "登录")
+        {
+            cc.director.loadScene("Login");
+        }
+        if(this.status.string === "注销")
+        {
+            USER_NAME = "";
+            CURR_CHAPTER_NUM = MAX_CHAPTER_NUM = 1;
+            this.playername.string = USER_NAME;
+            this.status.string = "登录";
+        }
+    },
 
     //回到主菜单
     toMenu: function(){
