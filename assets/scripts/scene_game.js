@@ -121,7 +121,6 @@ cc.Class({
         // this.bodys.push(body);
         
         this.drawpen.clear();
-        STRAT_FLAG = true;
     },
 
     //重新开始当前关卡

@@ -19,7 +19,7 @@ cc.Class({
         this.body = world.CreateBody(bd);
         var shape = new b2PolygonShape();
         shape.SetAsBoxXY(width/SCALE/2,height/SCALE/2);
-        this.body.CreateFixtureFromShape(shape, 0.1);
+        this.body.CreateFixtureFromShape(shape, 10);
     },
 
     update (dt) {

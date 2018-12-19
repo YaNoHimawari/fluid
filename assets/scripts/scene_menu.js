@@ -8,6 +8,7 @@ cc.Class({
 
     //开始游戏
     startgame:function(){
+        CURR_CHAPTER_NUM = MAX_CHAPTER_NUM;
         let scenenname = "Chapter" + MAX_CHAPTER_NUM.toString();
         cc.director.loadScene(scenenname);
     },

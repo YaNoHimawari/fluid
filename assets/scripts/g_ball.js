@@ -17,7 +17,7 @@ cc.Class({
         this.body = world.CreateBody(bd);
         var shape = new b2CircleShape();
         shape.radius = radius/SCALE;
-        this.body.CreateFixtureFromShape(shape, 1);
+        this.body.CreateFixtureFromShape(shape, 10);
     },
 
     update (dt) {

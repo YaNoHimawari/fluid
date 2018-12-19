@@ -78,12 +78,12 @@ cc.Class({
                 ++count;
             }
         }
-        if(!this.schedulefalg && count > 0)
+        if(!this.schedulefalg)
         {
-            this.scheduleOnce(this.failed,8);
+            this.scheduleOnce(this.failed,10);
             this.schedulefalg = true;
         }
-        if(!this.passfalg && count > 500)
+        if(!this.passfalg && count > 620)
         {
             this.unschedule(this.failed);
             this.scheduleOnce(this.pass,2);
@@ -104,7 +104,6 @@ cc.Class({
         cc.director.loadScene("Pass");
     },
 
-    //????
     push:function(){
         var data = {'name':USER_NAME, 'num':CURR_CHAPTER_NUM, 'score':SCORE};
         var socket = window.io('http://localhost:3000');
