@@ -22,7 +22,7 @@ cc.Class({
     signin:function(){
         let self = this;
         var player = {'name':this.account.string, 'password':this.password.string};
-        var socket = window.io('http://localhost:3000');
+        var socket = window.io(address);
         socket.emit('signin', player);
         socket.on('signinResult',function(result){
             if(result)

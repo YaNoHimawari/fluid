@@ -83,7 +83,7 @@ cc.Class({
             this.scheduleOnce(this.failed,10);
             this.schedulefalg = true;
         }
-        if(!this.passfalg && count > 620)
+        if(!this.passfalg && count > LIQUID_COUNT)
         {
             this.unschedule(this.failed);
             this.scheduleOnce(this.pass,2);
@@ -106,7 +106,7 @@ cc.Class({
 
     push:function(){
         var data = {'name':USER_NAME, 'num':CURR_CHAPTER_NUM, 'score':SCORE};
-        var socket = window.io('http://localhost:3000');
+        var socket = window.io(address);
         socket.emit('push', data);
     },
 });

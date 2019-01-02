@@ -22,7 +22,7 @@ cc.Class({
     onLoad () {
         let self = this;
         this.chapter.string += CURR_CHAPTER_NUM;
-        var socket = window.io('http://localhost:3000');
+        var socket = window.io(address);
         socket.emit('rank', CURR_CHAPTER_NUM);
         socket.on('rankResult',function(result){
             for(let i=0;i<result.length;++i)

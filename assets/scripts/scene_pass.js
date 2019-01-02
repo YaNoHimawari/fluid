@@ -34,7 +34,7 @@ cc.Class({
     next:function(){
         if(USER_NAME !== "")
         {
-            var socket = window.io('http://localhost:3000');
+            var socket = window.io(address);
             var data = {'name':USER_NAME, 'num':MAX_CHAPTER_NUM};
             socket.emit('updateC', data);
         }

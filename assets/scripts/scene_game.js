@@ -38,9 +38,21 @@ cc.Class({
         this.bodys = [];
 
         //创建物理世界
-        var gravity = new b2Vec2(0, -10);
-        world = new b2World(gravity, true);
-
+        if(world === null)
+        {
+            let gravity = new b2Vec2(0, -10);    //重力值
+            world = new b2World(gravity, true);
+        } else {
+            while (world.joints.length > 0) {
+              world.DestroyJoint(world.joints[0]);
+            }
+            while (world.bodies.length > 0) {
+              world.DestroyBody(world.bodies[0]);
+            }
+            while (world.particleSystems.length > 0) {
+              world.DestroyParticleSystem(world.particleSystems[0]);
+            }
+        }
         //开启事件监听
         this.node.on(cc.Node.EventType.TOUCH_START,this.draw_start,this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE,this.draw_move,this);
@@ -125,6 +137,17 @@ cc.Class({
 
     //重新开始当前关卡
     replay:function(){
+        if (world !== null) {
+            while (world.joints.length > 0) {
+              world.DestroyJoint(world.joints[0]);
+            }
+            while (world.bodies.length > 0) {
+              world.DestroyBody(world.bodies[0]);
+            }
+            while (world.particleSystems.length > 0) {
+              world.DestroyParticleSystem(world.particleSystems[0]);
+            }
+        }
         let scenenname = "Chapter" + CURR_CHAPTER_NUM.toString();
         cc.director.loadScene(scenenname);
     },
