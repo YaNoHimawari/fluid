@@ -7,11 +7,6 @@ cc.Class({
             default:null,
             type:cc.Graphics,
         },
-        //更新绘制组件用笔
-        // updatepen:{
-        //     default:null,
-        //     type:cc.Graphics,
-        // },
         //墨水条
         inkbar:{
             default:null,
@@ -31,6 +26,8 @@ cc.Class({
 
     vertices:null,      //节点存储数组
     bodys:null,         //组件存储数组
+    sumlength:null,     //线条累加长度
+    lastpoint:null,     //最后一个点
 
     onLoad () {
         STRAT_FLAG = false;
@@ -61,46 +58,50 @@ cc.Class({
 
     update (dt) {
         world.Step(dt, 8, 3);
-        // if(this.bodys.length >0)
-        // {
-        //     this.updatepen.clear();
-        // }
-        // for(let i=0;i<this.bodys.length;++i)
-        // {
-        //     let center = this.bodys[i].GetPosition();
-        //     let vertices = this.bodys[i].fixtures[0].shape.vertices;
-        //     for(let j=0;j<vertices.length-1;++j)
-        //     {
-        //         let v1 = convertToNode(new b2Vec2(vertices[j].x+center.x,vertices[j].y+center.y));
-        //         let v2 = convertToNode(new b2Vec2(vertices[j+1].x+center.x,vertices[j+1].y+center.y));
-        //         this.updatepen.moveTo(v1.x,v1.y);
-        //         this.updatepen.lineTo(v2.x,v2.y);
-        //         this.updatepen.stroke();
-        //     }
-        // }
+        this.inkvalue.string = SCORE;
+        this.inkbar.width = 250 * SCORE / 100;
     },
 
     draw_start:function(t){
         this.vertices = [];
+        this.sumlength = 0.0;
+        this.lastpoint = null;
+        SCORE = SCORE - 1;
     },
 
     draw_move:function(t){
         var position = t.getLocation();
         var nodeposition = this.drawpen.node.convertToNodeSpaceAR(position);
-        if(this.vertices.length > 0)
+
+        if(this.lastpoint === null)
         {
-            var lastpoint = this.vertices[this.vertices.length-1];
-            if((lastpoint.x === nodeposition.x) && (lastpoint.y === nodeposition.y))
-            {
-                return;
-            }
-            this.drawpen.moveTo(lastpoint.x, lastpoint.y);
-            this.drawpen.lineTo(nodeposition.x, nodeposition.y);
-            this.drawpen.stroke();
+            this.lastpoint = nodeposition;
+            this.vertices.push(nodeposition);
+            return;
         }
-        this.vertices.push(nodeposition);
-        this.inkvalue.string = SCORE = SCORE - 1;
-        this.inkbar.width = 250 * SCORE / 100;
+
+        if((this.lastpoint.x === nodeposition.x) && (this.lastpoint.y === nodeposition.y))
+        {
+            return;
+        }
+        this.drawpen.moveTo(this.lastpoint.x, this.lastpoint.y);
+        this.drawpen.lineTo(nodeposition.x, nodeposition.y);
+        this.drawpen.stroke();
+        this.lastpoint = nodeposition;
+
+        var delta = t.getDelta();
+        this.sumlength += delta.mag();
+        let flag = false;
+        while(this.sumlength >= MAG)
+        {
+            flag = true;
+            this.sumlength -= MAG;
+            SCORE = SCORE - 1;
+        }
+        if(flag)
+        {
+            this.vertices.push(nodeposition);
+        }
         if(SCORE < 1)
         {
             this.draw_end();

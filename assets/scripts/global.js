@@ -9,7 +9,8 @@ window.SCALE = 32;              //物理世界距离转化值
 window.RADTODEG = Math.PI/180;  //物理世界角度转化值
 window.SCORE = 100;             //当前关卡得分
 window.MAX_CHAPTER_COUNT = 15;   //游戏最大关卡数
-window.LIQUID_COUNT = 540;      // 过关粒子数
+window.LIQUID_COUNT = 540;      //过关粒子数
+window.MAG = 20;                //一点得分等价的距离
 
 window.address = 'http://47.112.20.107:3000'; //服务器地址
 
